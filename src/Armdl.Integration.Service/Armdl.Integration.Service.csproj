@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Erast Korolev</Authors>
+    <Company></Company>
+    <Product>User and license integration service</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Requires registered module on armdl. Available methods:
+- get access token
+- refresh token
+- get user info
+- get license info</Description>
+    <Copyright />
+    <RepositoryUrl>https://github.com/erastmorgan/armdl-integration</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

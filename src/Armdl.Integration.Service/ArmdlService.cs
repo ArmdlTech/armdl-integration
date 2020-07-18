@@ -61,7 +61,9 @@ namespace Armdl.Integration.Service
                 new KeyValuePair<string, string>("code", authorizationCode)
             });
 
-            var response = await this.GetNewHttpClient().PostAsync(ArmdlConfig.TokenUrl, content);
+            var response = await this.GetNewHttpClient()
+                .PostAsync(ArmdlConfig.TokenUrl, content)
+                .ConfigureAwait(false);
             var responseMsg = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
@@ -87,7 +89,9 @@ namespace Armdl.Integration.Service
         /// <returns>The user defails.</returns>
         public async Task<ArmdlUser> GetUser(string accessToken)
         {
-            var response = await this.GetNewHttpClient(accessToken).GetAsync(ArmdlConfig.UserInfoUrl);
+            var response = await this.GetNewHttpClient(accessToken)
+                .GetAsync(ArmdlConfig.UserInfoUrl)
+                .ConfigureAwait(false);
             var responseMsg = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
@@ -123,7 +127,9 @@ namespace Armdl.Integration.Service
         /// <returns>The license details.</returns>
         public async Task<ArmdlLicense> GetUserLicence(string accessToken)
         {
-            var response = await this.GetNewHttpClient(accessToken).GetAsync(ArmdlConfig.UserLicenseInfoUrl);
+            var response = await this.GetNewHttpClient(accessToken)
+                .GetAsync(ArmdlConfig.UserLicenseInfoUrl)
+                .ConfigureAwait(false);
             var responseMsg = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
@@ -171,7 +177,9 @@ namespace Armdl.Integration.Service
                 new KeyValuePair<string, string>("scope", "*")
             });
 
-            var response = await this.GetNewHttpClient().PostAsync(ArmdlConfig.TokenUrl, content);
+            var response = await this.GetNewHttpClient()
+                .PostAsync(ArmdlConfig.TokenUrl, content)
+                .ConfigureAwait(false);
             var responseMsg = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
