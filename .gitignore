@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/.vs/
+/src/Armdl.Integration.Authentication/bin/
+/src/Armdl.Integration.Authentication/obj
+/src/Armdl.Integration.Service/bin/
+/src/Armdl.Integration.Service/obj
