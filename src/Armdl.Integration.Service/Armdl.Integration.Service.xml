@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Armdl.Integration.Service</name>
+    </assembly>
+    <members>
+        <member name="T:Armdl.Integration.Service.Abstracts.IArmdlService">
+            <summary>
+            Defines an interface of armdl service.
+            </summary>
+        </member>
+        <member name="M:Armdl.Integration.Service.Abstracts.IArmdlService.GetAccessToken(System.String,System.String)">
+            <summary>
+            Get the access token.
+            </summary>
+            <param name="authorizationCode">The authorization code retrieved via callback URL.</param>
+            <param name="callbackUrl">The URL, on which user going after authentication on armdl service.</param>
+            <returns>The token details.</returns>
+        </member>
+        <member name="M:Armdl.Integration.Service.Abstracts.IArmdlService.RefreshAccessToken(System.String)">
+            <summary>
+            Refresh the access token and get new.
+            </summary>
+            <param name="refreshToken">The special refresh token value to getting new.</param>
+            <returns>The token details.</returns>
+        </member>
+        <member name="M:Armdl.Integration.Service.Abstracts.IArmdlService.GetUser(System.String)">
+            <summary>
+            Get the user info.
+            </summary>
+            <param name="accessToken">The access token value.</param>
+            <returns>The user defails.</returns>
+        </member>
+        <member name="M:Armdl.Integration.Service.Abstracts.IArmdlService.GetUserLicence(System.String)">
+            <summary>
+            Get the user license info.
+            </summary>
+            <param name="accessToken">The access token value.</param>
+            <returns>The license details.</returns>
+        </member>
+        <member name="T:Armdl.Integration.Service.ArmdlService">
+            <summary>
+            Defines the main armdl integration requests.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.ArmdlService.clientId">
+            <summary>
+            The unique client ID.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.ArmdlService.clientSecret">
+            <summary>
+            The related client secret with client ID.
+            </summary>
+        </member>
+        <member name="M:Armdl.Integration.Service.ArmdlService.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Armdl.Integration.Service.ArmdlService"/> class.
+            </summary>
+            <param name="clientId">The unique client ID registered on armdl service.</param>
+            <param name="clientSecret">The related client secret key.</param>
+        </member>
+        <member name="M:Armdl.Integration.Service.ArmdlService.GetAccessToken(System.String,System.String)">
+            <summary>
+            Get the access token.
+            </summary>
+            <param name="authorizationCode">The authorization code retrieved via callback URL.</param>
+            <param name="callbackUrl">The URL, on which user going after authentication on armdl service.</param>
+            <returns>The token details.</returns>
+        </member>
+        <member name="M:Armdl.Integration.Service.ArmdlService.GetUser(System.String)">
+            <summary>
+            Get the user info.
+            </summary>
+            <param name="accessToken">The access token value.</param>
+            <returns>The user defails.</returns>
+        </member>
+        <member name="M:Armdl.Integration.Service.ArmdlService.GetUserLicence(System.String)">
+            <summary>
+            Get the user license info.
+            </summary>
+            <param name="accessToken">The access token value.</param>
+            <returns>The license details.</returns>
+        </member>
+        <member name="M:Armdl.Integration.Service.ArmdlService.RefreshAccessToken(System.String)">
+            <summary>
+            Refresh the access token and get new.
+            </summary>
+            <param name="refreshToken">The special refresh token value to getting new.</param>
+            <returns>The token details.</returns>
+        </member>
+        <member name="T:Armdl.Integration.Service.Configuration.ArmdlConfig">
+            <summary>
+            Defines integration configuration.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.OfficeTimeZone">
+            <summary>
+            Gets the office timezone.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.TokenUrl">
+            <summary>
+            Gets the token getting URL.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.UserInfoUrl">
+            <summary>
+            Gets the user info URL.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.UserLicenseInfoUrl">
+            <summary>
+            Gets the user license info URL.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.BaseUrl">
+            <summary>
+            Gets the base service address.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.RegistrationUrl">
+            <summary>
+            Gets the registration URL.
+            </summary>
+        </member>
+        <member name="F:Armdl.Integration.Service.Configuration.ArmdlConfig.AuthorizationUrl">
+            <summary>
+            Gets the authorization URL with format parameters:
+            0 - client ID.
+            1 - redirect URL.
+            2 - state.
+            </summary>
+        </member>
+        <member name="T:Armdl.Integration.Service.Data.ArmdlLicense">
+            <summary>
+            Defines license details info.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.Id">
+            <summary>
+            Gets the license ID.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.IsValid">
+            <summary>
+            Gets a value indicating whether is valid license for current module.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.Status">
+            <summary>
+            Gets the license status.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.UserId">
+            <summary>
+            Gets the related user ID.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.ModuleId">
+            <summary>
+            Gets the module ID (as usual is it same as client ID).
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.EndedAtUTC">
+            <summary>
+            Gets the license expiration date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.CreatedAtUTC">
+            <summary>
+            Gets the license creation date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.UpdatedAtUTC">
+            <summary>
+            Gets the last updating date of license.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.StartedAtUTC">
+            <summary>
+            Gets the license beginning date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlLicense.Token">
+            <summary>
+            Gets the related token value.
+            </summary>
+        </member>
+        <member name="T:Armdl.Integration.Service.Data.ArmdlToken">
+            <summary>
+            Defines oauth token information.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlToken.Type">
+            <summary>
+            Gets the token type.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlToken.ExpiresInUTC">
+            <summary>
+            Gets the expiration date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlToken.AccessToken">
+            <summary>
+            Gets the access token value.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlToken.RefreshToken">
+            <summary>
+            Gets the refresh token value.
+            </summary>
+        </member>
+        <member name="T:Armdl.Integration.Service.Data.ArmdlUser">
+            <summary>
+            Defines the user info.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.Id">
+            <summary>
+            Gets the user ID.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.Name">
+            <summary>
+            Gets the name of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.Email">
+            <summary>
+            Gets the user email.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.EmailVerifiedAtUTC">
+            <summary>
+            Gets the email verification date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.CreatedAtUTC">
+            <summary>
+            Gets the user created date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.UpdatedAtUTC">
+            <summary>
+            Gets the user user info updated date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.Balance">
+            <summary>
+            Gets the personal balance of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.ApiToken">
+            <summary>
+            Gets the API token of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.Type">
+            <summary>
+            Gets the type of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.OrganizationName">
+            <summary>
+            Gets the organisation name.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.OrganizationInn">
+            <summary>
+            Gets the organisation INN.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Service.Data.ArmdlUser.OrganizationAddress">
+            <summary>
+            Gets the organisation address.
+            </summary>
+        </member>
+    </members>
+</doc>
