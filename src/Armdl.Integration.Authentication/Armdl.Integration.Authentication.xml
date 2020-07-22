@@ -4,5 +4,56 @@
         <name>Armdl.Integration.Authentication</name>
     </assembly>
     <members>
+        <member name="T:Armdl.Integration.Authentication.ArmdlExtensions">
+            <summary>
+            Defines extensions methods to adding armdl oauth authentication.
+            </summary>
+        </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlExtensions.AddArmdl(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Armdl.Integration.Authentication.ArmdlOptions})">
+            <summary>
+            Add the armdl authentication supporting.
+            </summary>
+            <param name="builder">The authentication builder.</param>
+            <param name="configureOptions">The action to configure armdl options.</param>
+            <returns>The source referenced and configured authentication builder.</returns>
+        </member>
+        <member name="T:Armdl.Integration.Authentication.ArmdlHandler">
+            <summary>
+            Defines the armdl authentication requests handler.
+            </summary>
+        </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Armdl.Integration.Authentication.ArmdlOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Armdl.Integration.Authentication.ArmdlHandler"/> class.
+            </summary>
+            <param name="options">The authentication options.</param>
+            <param name="logger">The logger.</param>
+            <param name="encoder">The URL encoder.</param>
+            <param name="clock">The system time meter.</param>
+        </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlHandler.CreateTicketAsync(System.Security.Claims.ClaimsIdentity,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse)">
+            <summary>
+            Create the ticket to getting user info.
+            </summary>
+            <param name="identity">The claims identity.</param>
+            <param name="properties">The authentication properties.</param>
+            <param name="tokens">The token info.</param>
+            <returns>The authentication ticket result.</returns>
+        </member>
+        <member name="T:Armdl.Integration.Authentication.ArmdlOptions">
+            <summary>
+            Configuration options for <see cref="T:Armdl.Integration.Authentication.ArmdlHandler"/>.
+            </summary>
+        </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Armdl.Integration.Authentication.ArmdlOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.Authentication.ArmdlOptions.UserLicenseEndpoint">
+            <summary>
+            Gets or sets user license info URL.
+            </summary>
+        </member>
     </members>
 </doc>

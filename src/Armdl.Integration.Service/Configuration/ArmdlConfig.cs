@@ -27,7 +27,7 @@ namespace Armdl.Integration.Service.Configuration
         /// <summary>
         /// Gets the user license info URL.
         /// </summary>
-        internal static string UserLicenseInfoUrl = "/user-license";
+        internal static string UserLicenseInfoUrl = "/api/user-license";
 
         /// <summary>
         /// Gets the base service address.

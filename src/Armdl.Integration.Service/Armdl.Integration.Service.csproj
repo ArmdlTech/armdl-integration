@@ -5,7 +5,7 @@
     <Authors>Erast Korolev</Authors>
     <Company></Company>
     <Product>User and license integration service</Product>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Requires registered module on armdl. Available methods:
 - get access token
 - refresh token
