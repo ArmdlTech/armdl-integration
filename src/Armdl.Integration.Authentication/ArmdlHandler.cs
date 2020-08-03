@@ -55,9 +55,11 @@ namespace Armdl.Integration.Authentication
                 var context = new OAuthCreatingTicketContext(new ClaimsPrincipal(identity), properties, Context, Scheme, Options, Backchannel, tokens, userData.RootElement);
                 context.RunClaimActions();
 
+                var providerName = ArmdlDefaults.AuthenticationScheme.ToLowerInvariant();
+
                 //// Add missing user and license info properties to claims.
-                var userClaims = userData.RootElement.GetClaims("user").Where(x => !context.Identity.Claims.Any(v => v.Type == x.Type)).ToList();
-                var licenseClaims = licenseData.RootElement.GetClaims("user:license").Where(x => !context.Identity.Claims.Any(v => v.Type == x.Type)).ToList();
+                var userClaims = userData.RootElement.GetClaims(providerName + ":user").Where(x => !context.Identity.Claims.Any(v => v.Type == x.Type)).ToList();
+                var licenseClaims = licenseData.RootElement.GetClaims(providerName + ":user:license").Where(x => !context.Identity.Claims.Any(v => v.Type == x.Type)).ToList();
 
                 context.Identity.AddClaims(userClaims);
                 context.Identity.AddClaims(licenseClaims);

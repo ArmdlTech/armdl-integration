@@ -6,6 +6,8 @@ namespace Armdl.Integration.Authentication
 {
     public static class ArmdlDefaults
     {
+        internal static TimeZoneInfo OfficeTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russia Time Zone 3");
+
         public const string AuthenticationScheme = "Armdl";
 
         public static readonly string DisplayName = "Armdl";

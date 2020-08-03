@@ -9,6 +9,13 @@
             Defines extensions methods to adding armdl oauth authentication.
             </summary>
         </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlExtensions.ToArmdlUser(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})">
+            <summary>
+            Convert Armdl claims to user info object.
+            </summary>
+            <param name="claims">The armdl claims list.</param>
+            <returns>The user info with license.</returns>
+        </member>
         <member name="M:Armdl.Integration.Authentication.ArmdlExtensions.AddArmdl(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Armdl.Integration.Authentication.ArmdlOptions})">
             <summary>
             Add the armdl authentication supporting.
@@ -53,6 +60,156 @@
         <member name="P:Armdl.Integration.Authentication.ArmdlOptions.UserLicenseEndpoint">
             <summary>
             Gets or sets user license info URL.
+            </summary>
+        </member>
+        <member name="T:Armdl.Integration.ArmdlLicense">
+            <summary>
+            Defines license details info.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.Id">
+            <summary>
+            Gets the license ID.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.IsValid">
+            <summary>
+            Gets a value indicating whether is valid license for current module.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.Status">
+            <summary>
+            Gets the license status.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.UserId">
+            <summary>
+            Gets the related user ID.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.ModuleId">
+            <summary>
+            Gets the module ID (as usual is it same as client ID).
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.EndedAtUTC">
+            <summary>
+            Gets the license expiration date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.CreatedAtUTC">
+            <summary>
+            Gets the license creation date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.UpdatedAtUTC">
+            <summary>
+            Gets the last updating date of license.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.StartedAtUTC">
+            <summary>
+            Gets the license beginning date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlLicense.Token">
+            <summary>
+            Gets the related token value.
+            </summary>
+        </member>
+        <member name="T:Armdl.Integration.ArmdlToken">
+            <summary>
+            Defines oauth token information.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlToken.Type">
+            <summary>
+            Gets the token type.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlToken.ExpiresInUTC">
+            <summary>
+            Gets the expiration date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlToken.AccessToken">
+            <summary>
+            Gets the access token value.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlToken.RefreshToken">
+            <summary>
+            Gets the refresh token value.
+            </summary>
+        </member>
+        <member name="T:Armdl.Integration.ArmdlUser">
+            <summary>
+            Defines the user info.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.Id">
+            <summary>
+            Gets the user ID.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.Name">
+            <summary>
+            Gets the name of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.Email">
+            <summary>
+            Gets the user email.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.EmailVerifiedAtUTC">
+            <summary>
+            Gets the email verification date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.CreatedAtUTC">
+            <summary>
+            Gets the user created date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.UpdatedAtUTC">
+            <summary>
+            Gets the user user info updated date.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.Balance">
+            <summary>
+            Gets the personal balance of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.ApiToken">
+            <summary>
+            Gets the API token of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.Type">
+            <summary>
+            Gets the type of user.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.OrganizationName">
+            <summary>
+            Gets the organisation name.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.OrganizationInn">
+            <summary>
+            Gets the organisation INN.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.OrganizationAddress">
+            <summary>
+            Gets the organisation address.
+            </summary>
+        </member>
+        <member name="P:Armdl.Integration.ArmdlUser.License">
+            <summary>
+            Gets the license info for current module by which authorization doing.
             </summary>
         </member>
     </members>
