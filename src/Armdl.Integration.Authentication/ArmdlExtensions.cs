@@ -111,15 +111,16 @@ namespace Armdl.Integration.Authentication
 
             var hasLicense = licenseInfo.Info != null && licenseInfo.Status.ToLowerInvariant() == "success";
             var defaultNoLicenseDate = new DateTime(1900, 01, 01);
+            var endedAtUTCLicenseDate = !hasLicense ? defaultNoLicenseDate : DateTime.Parse(licenseInfo.Info.EndedAt).OfficeTimeToUtc();
 
             var license = new ArmdlLicense
             {
-                IsValid = hasLicense,
+                IsValid = hasLicense && DateTime.UtcNow < endedAtUTCLicenseDate,
                 Status = licenseInfo.Status,
                 CreatedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.CreatedAt)
                         ? default(DateTime?)
                         : DateTime.Parse(licenseInfo.Info.CreatedAt).OfficeTimeToUtc(),
-                EndedAtUTC = !hasLicense ? defaultNoLicenseDate : DateTime.Parse(licenseInfo.Info.EndedAt).OfficeTimeToUtc(),
+                EndedAtUTC = endedAtUTCLicenseDate,
                 StartedAtUTC = !hasLicense ? defaultNoLicenseDate : DateTime.Parse(licenseInfo.Info.StartedAt).OfficeTimeToUtc(),
                 UpdatedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.UpdatedAt)
                         ? default(DateTime?) :
