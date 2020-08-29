@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TimeZoneConverter;
 
 namespace Armdl.Integration.Authentication
 {
     public static class ArmdlDefaults
     {
-        public static TimeZoneInfo OfficeTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russia Time Zone 3");
+        public static TimeZoneInfo OfficeTimeZone = TZConvert.GetTimeZoneInfo("Russia Time Zone 3");
 
         public const string AuthenticationScheme = "Armdl";
 
