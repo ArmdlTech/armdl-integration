@@ -13,7 +13,7 @@ namespace Armdl.Integration.Authentication
 
         public static readonly string DisplayName = "Armdl";
 
-        public static readonly string BaseAddress = "http://armdl.ru";
+        public static readonly string BaseAddress = "https://armdl.ru";
 
         public static readonly string AuthorizationEndpoint = BaseAddress + "/oauth/authorize";
 
