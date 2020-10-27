@@ -36,6 +36,48 @@ namespace Armdl.Integration.Authentication
         }
 
         /// <summary>
+        /// Get the access tokens information.
+        /// </summary>
+        /// <param name="context">The oauth code context.</param>
+        /// <returns>The tokens response.</returns>
+        protected override async Task<OAuthTokenResponse> ExchangeCodeAsync(OAuthCodeExchangeContext context)
+        {
+            var tokenRequestParameters = new Dictionary<string, string>()
+            {
+                { "client_id", this.Options.ClientId },
+                { "redirect_uri", context.RedirectUri.Replace("http%3A%2F%2F", "https%3A%2F%2F").Replace("http:", "https:") },
+                { "client_secret", this.Options.ClientSecret },
+                { "code", context.Code },
+                { "grant_type", "authorization_code" },
+            };
+
+            // PKCE https://tools.ietf.org/html/rfc7636#section-4.5, see BuildChallengeUrl
+            if (context.Properties.Items.TryGetValue(OAuthConstants.CodeVerifierKey, out var codeVerifier))
+            {
+                tokenRequestParameters.Add(OAuthConstants.CodeVerifierKey, codeVerifier);
+                context.Properties.Items.Remove(OAuthConstants.CodeVerifierKey);
+            }
+
+            var requestContent = new FormUrlEncodedContent(tokenRequestParameters);
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, this.Options.TokenEndpoint);
+            requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            requestMessage.Content = requestContent;
+            requestMessage.Version = Backchannel.DefaultRequestVersion;
+            var response = await Backchannel.SendAsync(requestMessage, Context.RequestAborted);
+            if (response.IsSuccessStatusCode)
+            {
+                var payload = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+                return OAuthTokenResponse.Success(payload);
+            }
+            else
+            {
+                var error = "OAuth token endpoint failure: " + await Display(response);
+                return OAuthTokenResponse.Failed(new Exception(error));
+            }
+        }
+
+        /// <summary>
         /// Create the ticket to getting user info.
         /// </summary>
         /// <param name="identity">The claims identity.</param>
@@ -87,6 +129,15 @@ namespace Armdl.Integration.Authentication
             }
 
             return response;
+        }
+
+        private static async Task<string> Display(HttpResponseMessage response)
+        {
+            var output = new StringBuilder();
+            output.Append("Status: " + response.StatusCode + ";");
+            output.Append("Headers: " + response.Headers.ToString() + ";");
+            output.Append("Body: " + await response.Content.ReadAsStringAsync() + ";");
+            return output.ToString();
         }
     }
 }

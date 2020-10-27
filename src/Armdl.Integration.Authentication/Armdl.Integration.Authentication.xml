@@ -38,6 +38,13 @@
             <param name="encoder">The URL encoder.</param>
             <param name="clock">The system time meter.</param>
         </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlHandler.ExchangeCodeAsync(Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext)">
+            <summary>
+            Get the access tokens information.
+            </summary>
+            <param name="context">The oauth code context.</param>
+            <returns>The tokens response.</returns>
+        </member>
         <member name="M:Armdl.Integration.Authentication.ArmdlHandler.CreateTicketAsync(System.Security.Claims.ClaimsIdentity,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse)">
             <summary>
             Create the ticket to getting user info.
