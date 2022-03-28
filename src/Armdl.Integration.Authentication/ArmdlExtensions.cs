@@ -97,13 +97,22 @@ namespace Armdl.Integration.Authentication
         }
 
         /// <summary>
-        /// Add the armdl authentication supporting.
+        /// Add the armdl authentication supporting by default scheme <see cref="ArmdlDefaults.AuthenticationScheme"/>.
         /// </summary>
         /// <param name="builder">The authentication builder.</param>
         /// <param name="configureOptions">The action to configure armdl options.</param>
         /// <returns>The source referenced and configured authentication builder.</returns>
         public static AuthenticationBuilder AddArmdl(this AuthenticationBuilder builder, Action<ArmdlOptions> configureOptions)
             => builder.AddOAuth<ArmdlOptions, ArmdlHandler>(ArmdlDefaults.AuthenticationScheme, ArmdlDefaults.DisplayName, configureOptions);
+
+        public static AuthenticationBuilder AddArmdl(
+            this AuthenticationBuilder builder, 
+            string authenticationScheme, 
+            string displayName, 
+            Action<ArmdlOptions> configureOptions)
+        {
+            return builder.AddOAuth<ArmdlOptions, ArmdlHandler>(authenticationScheme, displayName, configureOptions);
+        }
 
         private static ArmdlUser ToArmdlUser(this UserInfoDTO userInfo)
         {

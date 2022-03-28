@@ -18,7 +18,7 @@
         </member>
         <member name="M:Armdl.Integration.Authentication.ArmdlExtensions.AddArmdl(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Armdl.Integration.Authentication.ArmdlOptions})">
             <summary>
-            Add the armdl authentication supporting.
+            Add the armdl authentication supporting by default scheme <see cref="F:Armdl.Integration.Authentication.ArmdlDefaults.AuthenticationScheme"/>.
             </summary>
             <param name="builder">The authentication builder.</param>
             <param name="configureOptions">The action to configure armdl options.</param>
@@ -68,6 +68,13 @@
             <summary>
             Gets or sets user license info URL.
             </summary>
+        </member>
+        <member name="M:Armdl.Integration.Authentication.ArmdlOptions.ConfigureUrls(System.String)">
+            <summary>
+            Configure auth protocol URLs by scheme 
+            <see cref="F:Armdl.Integration.Authentication.ArmdlDefaults.AuthenticationScheme"/> or <see cref="F:Armdl.Integration.Authentication.ArmdlDefaults.AuthenticationSchemeTech"/>.
+            </summary>
+            <param name="schemeName">The scheme value, by which URLs will be builded.</param>
         </member>
         <member name="T:Armdl.Integration.ArmdlLicense">
             <summary>

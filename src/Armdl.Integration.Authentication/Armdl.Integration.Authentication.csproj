@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,6 +22,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="xcopy /E /Y &quot;$(ProjectDir)bin\Release\netcoreapp3.1&quot; &quot;C:\Development\arm-constructor\src\Libs\Armdl.Integration&quot;" />
+      <Exec Command="xcopy /E /Y &quot;$(ProjectDir)bin\Release\net5.0&quot; &quot;C:\Development\arm-constructor\src\Libs\Armdl.Integration&quot;" />
     </Target>
 </Project>

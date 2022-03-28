@@ -21,21 +21,34 @@ namespace Armdl.Integration.Authentication
         public ArmdlOptions()
         {
             this.CallbackPath = new PathString("/api/callback");
-            this.AuthorizationEndpoint = ArmdlDefaults.AuthorizationEndpoint;
-            this.TokenEndpoint = ArmdlDefaults.TokenEndpoint;
-            this.UserInformationEndpoint = ArmdlDefaults.UserInformationEndpoint;
-            this.UserLicenseEndpoint = ArmdlDefaults.UserLicenseEndpoint;
 
             this.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
             this.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
             this.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
 
             this.SaveTokens = true;
+
+            this.ConfigureUrls(ArmdlDefaults.AuthenticationScheme);
         }
 
         /// <summary>
         /// Gets or sets user license info URL.
         /// </summary>
         public string UserLicenseEndpoint { get; set; }
+
+        /// <summary>
+        /// Configure auth protocol URLs by scheme 
+        /// <see cref="ArmdlDefaults.AuthenticationScheme"/> or <see cref="ArmdlDefaults.AuthenticationSchemeTech"/>.
+        /// </summary>
+        /// <param name="schemeName">The scheme value, by which URLs will be builded.</param>
+        internal void ConfigureUrls(string schemeName)
+        {
+            var baseAddress = ArmdlDefaults.GetBaseAddress(schemeName);
+
+            this.AuthorizationEndpoint = baseAddress + ArmdlDefaults.AuthorizationEndpoint;
+            this.TokenEndpoint = baseAddress + ArmdlDefaults.TokenEndpoint;
+            this.UserInformationEndpoint = baseAddress + ArmdlDefaults.UserInformationEndpoint;
+            this.UserLicenseEndpoint = baseAddress + ArmdlDefaults.UserLicenseEndpoint;
+        }
     }
 }

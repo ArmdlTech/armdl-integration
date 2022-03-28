@@ -11,18 +11,38 @@ namespace Armdl.Integration.Authentication
 
         public const string AuthenticationScheme = "Armdl";
 
-        public static readonly string DisplayName = "Armdl";
+        public const string DisplayName = "Armdl";
 
-        public static readonly string BaseAddress = "https://armdl.ru";
+        public const string BaseAddress = "https://armdl.ru";
 
-        public static readonly string AuthorizationEndpoint = BaseAddress + "/oauth/authorize";
+        public const string AuthenticationSchemeTech = "ArmdlTech";
 
-        public static readonly string TokenEndpoint = BaseAddress + "/oauth/token";
+        public const string DisplayNameTech = "ArmdlTech";
 
-        public static readonly string UserInformationEndpoint = BaseAddress + "/api/user";
+        public const string BaseAddressTech = "https://armdl.tech";
 
-        public static readonly string UserLicenseEndpoint = BaseAddress + "/api/user-license";
+        public const string AuthorizationEndpoint = "/oauth/authorize";
 
-        public static readonly string RegistrationEndpoint = BaseAddress + "/register";
+        public const string TokenEndpoint = "/oauth/token";
+
+        public const string UserInformationEndpoint = "/api/user";
+
+        public const string UserLicenseEndpoint = "/api/user-license";
+
+        public const string RegistrationEndpoint = "/register";
+
+        public static string GetSchemeName(Uri uri) 
+            => !IsArmdlTech(uri) ? AuthenticationScheme : AuthenticationSchemeTech;
+
+        public static string GetDisplayName(Uri uri) => !IsArmdlTech(uri) ? DisplayName : DisplayNameTech;
+
+        public static string GetRegistrationEndpoint(Uri uri) => GetBaseAddress(uri) + RegistrationEndpoint;
+
+        public static string GetBaseAddress(Uri uri) => !IsArmdlTech(uri) ? BaseAddress : BaseAddressTech;
+
+        public static string GetBaseAddress(string schemeName) => 
+            schemeName == AuthenticationScheme ? BaseAddress : BaseAddressTech;
+
+        private static bool IsArmdlTech(Uri uri) => uri.Host.ToLowerInvariant().EndsWith(".armdl.tech");
     }
 }
