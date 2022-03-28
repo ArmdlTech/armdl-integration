@@ -41,7 +41,7 @@ namespace Armdl.Integration.Authentication
         /// <see cref="ArmdlDefaults.AuthenticationScheme"/> or <see cref="ArmdlDefaults.AuthenticationSchemeTech"/>.
         /// </summary>
         /// <param name="schemeName">The scheme value, by which URLs will be builded.</param>
-        internal void ConfigureUrls(string schemeName)
+        public void ConfigureUrls(string schemeName)
         {
             var baseAddress = ArmdlDefaults.GetBaseAddress(schemeName);
 
