@@ -20,8 +20,6 @@ namespace Armdl.Integration.Authentication
         /// </summary>
         public ArmdlOptions()
         {
-            this.CallbackPath = new PathString("/api/callback");
-
             this.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
             this.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
             this.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
@@ -49,6 +47,8 @@ namespace Armdl.Integration.Authentication
             this.TokenEndpoint = baseAddress + ArmdlDefaults.TokenEndpoint;
             this.UserInformationEndpoint = baseAddress + ArmdlDefaults.UserInformationEndpoint;
             this.UserLicenseEndpoint = baseAddress + ArmdlDefaults.UserLicenseEndpoint;
+
+            this.CallbackPath = new PathString($"/api/{schemeName.ToLowerInvariant()}-callback");
         }
     }
 }
