@@ -32,17 +32,17 @@ namespace Armdl.Integration.Authentication
         public const string RegistrationEndpoint = "/register";
 
         public static string GetSchemeName(Uri uri) 
-            => !IsArmdlTech(uri) ? AuthenticationScheme : AuthenticationSchemeTech;
+            => IsArmdlRu(uri) ? AuthenticationScheme : AuthenticationSchemeTech;
 
-        public static string GetDisplayName(Uri uri) => !IsArmdlTech(uri) ? DisplayName : DisplayNameTech;
+        public static string GetDisplayName(Uri uri) => IsArmdlRu(uri) ? DisplayName : DisplayNameTech;
 
         public static string GetRegistrationEndpoint(Uri uri) => GetBaseAddress(uri) + RegistrationEndpoint;
 
-        public static string GetBaseAddress(Uri uri) => !IsArmdlTech(uri) ? BaseAddress : BaseAddressTech;
+        public static string GetBaseAddress(Uri uri) => IsArmdlRu(uri) ? BaseAddress : BaseAddressTech;
 
         public static string GetBaseAddress(string schemeName) => 
             schemeName == AuthenticationScheme ? BaseAddress : BaseAddressTech;
 
-        private static bool IsArmdlTech(Uri uri) => uri.Host.ToLowerInvariant().EndsWith(".armdl.tech");
+        private static bool IsArmdlRu(Uri uri) => uri.Host.ToLowerInvariant().EndsWith(".armdl.ru");
     }
 }

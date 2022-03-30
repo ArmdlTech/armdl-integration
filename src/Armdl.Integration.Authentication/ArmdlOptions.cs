@@ -48,8 +48,16 @@ namespace Armdl.Integration.Authentication
             this.UserInformationEndpoint = baseAddress + ArmdlDefaults.UserInformationEndpoint;
             this.UserLicenseEndpoint = baseAddress + ArmdlDefaults.UserLicenseEndpoint;
 
+            var callbackPath = "/api/callback";
+            if (schemeName != ArmdlDefaults.AuthenticationScheme)
+            {
+                callbackPath = $"/api/{schemeName.ToLowerInvariant()}-callback";
+            }
+
+            this.CallbackPath = new PathString(callbackPath);
+
             //this.CallbackPath = new PathString($"/api/{schemeName.ToLowerInvariant()}-callback");
-            this.CallbackPath = new PathString($"/api/callback");
+            //this.CallbackPath = new PathString($"/api/callback");
         }
     }
 }

@@ -84,12 +84,22 @@ namespace Armdl.Integration.Authentication
                 else if (group.Key == licenseNodeKey)
                 {
                     userObj["license"] = new JObject();
-                    group.ToList().ForEach(x => userObj["license"][regex.Match(x.Type).Groups[2].Value] = ParseTypedValue(x.Value));
+                    group.ToList().ForEach(x =>
+                    {
+                        var value = x.Value == "[]" ? null : ParseTypedValue(x.Value);
+
+                        userObj["license"][regex.Match(x.Type).Groups[2].Value] = value;
+                    });
                 }
                 else if (group.Key == licenseInfoNodeKey)
                 {
                     userObj["license"]["info"] = new JObject();
-                    group.ToList().ForEach(x => userObj["license"]["info"][regex.Match(x.Type).Groups[2].Value] = ParseTypedValue(x.Value));
+                    group.ToList().ForEach(x =>
+                    {
+                        var value = x.Value == "[]" ? null : ParseTypedValue(x.Value);
+
+                        userObj["license"]["info"][regex.Match(x.Type).Groups[2].Value] = value;
+                    });
                 }
             }
 
@@ -120,20 +130,26 @@ namespace Armdl.Integration.Authentication
 
             var hasLicense = licenseInfo.Info != null && licenseInfo.Status.ToLowerInvariant() == "success";
             var defaultNoLicenseDate = new DateTime(1900, 01, 01);
-            var endedAtUTCLicenseDate = !hasLicense ? defaultNoLicenseDate : DateTime.Parse(licenseInfo.Info.EndedAt).OfficeTimeToUtc();
+            var endedAtUTCLicenseDate = defaultNoLicenseDate;
+            if (hasLicense)
+            {
+                endedAtUTCLicenseDate = ParseDateInUtc(licenseInfo.Info.EndedAt);
+            }
 
             var license = new ArmdlLicense
             {
                 IsValid = hasLicense && DateTime.UtcNow < endedAtUTCLicenseDate,
                 Status = licenseInfo.Status,
                 CreatedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.CreatedAt)
-                        ? default(DateTime?)
-                        : DateTime.Parse(licenseInfo.Info.CreatedAt).OfficeTimeToUtc(),
+                    ? default(DateTime?)
+                    : ParseDateInUtc(licenseInfo.Info.CreatedAt),
                 EndedAtUTC = endedAtUTCLicenseDate,
-                StartedAtUTC = !hasLicense ? defaultNoLicenseDate : DateTime.Parse(licenseInfo.Info.StartedAt).OfficeTimeToUtc(),
+                StartedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.StartedAt) 
+                    ? defaultNoLicenseDate 
+                    : ParseDateInUtc(licenseInfo.Info.StartedAt),
                 UpdatedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.UpdatedAt)
-                        ? default(DateTime?) :
-                        DateTime.Parse(licenseInfo.Info.UpdatedAt).OfficeTimeToUtc(),
+                    ? default(DateTime?) :
+                    ParseDateInUtc(licenseInfo.Info.UpdatedAt),
                 Id = !hasLicense ? -1 : licenseInfo.Info.Id,
                 ModuleId = !hasLicense ? -1 : licenseInfo.Info.ModuleId,
                 Token = !hasLicense ? Guid.Empty.ToString() : licenseInfo.Info.Token,
@@ -144,20 +160,32 @@ namespace Armdl.Integration.Authentication
             {
                 ApiToken = userInfo.ApiToken,
                 Balance = userInfo.Balance,
-                CreatedAtUTC = DateTime.Parse(userInfo.CreatedAt).OfficeTimeToUtc(),
+                CreatedAtUTC = ParseDateInUtc(userInfo.CreatedAt),
                 Email = userInfo.Email,
                 EmailVerifiedAtUTC = string.IsNullOrEmpty(userInfo.EmailVerifiedAt)
                     ? default(DateTime?)
-                    : DateTime.Parse(userInfo.EmailVerifiedAt).OfficeTimeToUtc(),
+                    : ParseDateInUtc(userInfo.EmailVerifiedAt),
                 Id = userInfo.Id,
                 Name = userInfo.Name,
                 OrganizationAddress = userInfo.OrganizationAddress,
                 OrganizationInn = userInfo.OrganizationInn,
                 OrganizationName = userInfo.OrganizationName,
                 Type = userInfo.Type,
-                UpdatedAtUTC = DateTime.Parse(userInfo.UpdatedAt).OfficeTimeToUtc(),
+                UpdatedAtUTC = ParseDateInUtc(userInfo.UpdatedAt),
                 License = license
             };
+        }
+
+        private static DateTime ParseDateInUtc(string source)
+        {
+            if (DateTimeOffset.TryParse(source, out var offsetDate))
+            {
+                return offsetDate.UtcDateTime;
+            }
+            else
+            {
+                return DateTime.Parse(source).OfficeTimeToUtc();
+            }
         }
     }
 }
