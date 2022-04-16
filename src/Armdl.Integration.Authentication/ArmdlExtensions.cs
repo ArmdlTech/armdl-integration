@@ -158,20 +158,32 @@ namespace Armdl.Integration.Authentication
 
             return new ArmdlUser
             {
-                ApiToken = userInfo.ApiToken,
-                Balance = userInfo.Balance,
-                CreatedAtUTC = ParseDateInUtc(userInfo.CreatedAt),
+
+                Id = userInfo.Id,
+                Name = userInfo.Name,
                 Email = userInfo.Email,
                 EmailVerifiedAtUTC = string.IsNullOrEmpty(userInfo.EmailVerifiedAt)
                     ? default(DateTime?)
                     : ParseDateInUtc(userInfo.EmailVerifiedAt),
-                Id = userInfo.Id,
-                Name = userInfo.Name,
-                OrganizationAddress = userInfo.OrganizationAddress,
-                OrganizationInn = userInfo.OrganizationInn,
-                OrganizationName = userInfo.OrganizationName,
+                ApiToken = userInfo.ApiToken,
+                Balance = userInfo.Balance,
                 Type = userInfo.Type,
+                OrganizationName = userInfo.OrganizationName,
+                OrganizationInn = userInfo.OrganizationInn,
+                OrganizationAddress = userInfo.OrganizationAddress,
+                Phone = userInfo.Phone,
+                PassportRequisite = userInfo.PassportRequisite,
+                OrgRequisite = userInfo.OrgRequisite,
+                CreatedAtUTC = ParseDateInUtc(userInfo.CreatedAt),
                 UpdatedAtUTC = ParseDateInUtc(userInfo.UpdatedAt),
+                PlanTypeId = userInfo.PlanTypeId,
+                StartedAtUTC = !string.IsNullOrEmpty(userInfo.StartedAt) 
+                    ? ParseDateInUtc(userInfo.StartedAt) 
+                    : default,
+                EndedAtUTC = !string.IsNullOrEmpty(userInfo.EndedAt)
+                    ? ParseDateInUtc(userInfo.StartedAt)
+                    : default,
+                IsAdmin = userInfo.IsAdmin,
                 License = license
             };
         }

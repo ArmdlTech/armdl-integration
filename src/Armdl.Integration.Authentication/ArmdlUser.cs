@@ -69,6 +69,20 @@ namespace Armdl.Integration
         /// </summary>
         public string OrganizationAddress { get; internal set; }
 
+        public string Phone { get; set; }
+
+        public string PassportRequisite { get; set; }
+
+        public string OrgRequisite { get; set; }
+
+        public long PlanTypeId { get; set; }
+
+        public DateTime StartedAtUTC { get; set; }
+
+        public DateTime EndedAtUTC { get; set; }
+
+        public bool IsAdmin { get; set; }
+
         /// <summary>
         /// Gets the license info for current module by which authorization doing.
         /// </summary>
