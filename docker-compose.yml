@@ -1,0 +1,9 @@
+services:
+  arm_integration:
+    container_name: arm_integration
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development

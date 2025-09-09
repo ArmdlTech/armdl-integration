@@ -8,3 +8,6 @@
 /src/Armdl.Integration.Authentication/obj
 /src/Armdl.Integration.Service/bin/
 /src/Armdl.Integration.Service/obj
+
+/build
+!/build/.gitkeep

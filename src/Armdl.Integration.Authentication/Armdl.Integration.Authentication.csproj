@@ -4,14 +4,6 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DocumentationFile>C:\Development\armdl-integration\src\Armdl.Integration.Authentication\Armdl.Integration.Authentication.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DocumentationFile>C:\Development\armdl-integration\src\Armdl.Integration.Authentication\Armdl.Integration.Authentication.xml</DocumentationFile>
-    </PropertyGroup>
-
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
@@ -20,8 +12,4 @@
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="TimeZoneConverter" Version="3.2.0" />
     </ItemGroup>
-
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="xcopy /E /Y &quot;$(ProjectDir)bin\Release\net5.0&quot; &quot;C:\Development\arm-constructor\src\Libs\Armdl.Integration&quot;" />
-    </Target>
 </Project>
