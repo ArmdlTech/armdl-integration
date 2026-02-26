@@ -19,6 +19,12 @@ namespace Armdl.Integration.Service.Data
         /// </summary>
         public string Name { get; internal set; }
 
+        public string? FirstName { get; set; }
+
+        public string? LastName { get; set; }
+
+        public string? Patronymic { get; set; }
+
         /// <summary>
         /// Gets the user email.
         /// </summary>

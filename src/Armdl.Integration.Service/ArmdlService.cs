@@ -1,4 +1,4 @@
-﻿using Armdl.Integration.Service.Abstracts;
+using Armdl.Integration.Service.Abstracts;
 using Armdl.Integration.Service.ApiDTO;
 using Armdl.Integration.Service.Configuration;
 using Armdl.Integration.Service.Data;
@@ -101,6 +101,23 @@ namespace Armdl.Integration.Service
 
             var userInfo = JsonConvert.DeserializeObject<UserInfoDTO>(responseMsg);
 
+            var hasDirectFioMapping =
+                !string.IsNullOrWhiteSpace(userInfo.FirstName)
+                || !string.IsNullOrWhiteSpace(userInfo.LastName)
+                || !string.IsNullOrWhiteSpace(userInfo.Patronymic);
+
+            if (!hasDirectFioMapping && !string.IsNullOrWhiteSpace(userInfo.Name))
+            {
+                var fioParts = userInfo.Name.Split(' ', 3, StringSplitOptions.RemoveEmptyEntries);
+
+                if (fioParts.Length == 3)
+                {
+                    userInfo.LastName = fioParts[0];
+                    userInfo.FirstName = fioParts[1];
+                    userInfo.Patronymic = fioParts[2];
+                }
+            }
+
             return new ArmdlUser
             {
                 ApiToken = userInfo.ApiToken,
@@ -112,6 +129,9 @@ namespace Armdl.Integration.Service
                     : DateTime.Parse(userInfo.EmailVerifiedAt).OfficeTimeToUtc(),
                 Id = userInfo.Id,
                 Name = userInfo.Name,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                Patronymic = userInfo.Patronymic,
                 OrganizationAddress = userInfo.OrganizationAddress,
                 OrganizationInn = userInfo.OrganizationInn,
                 OrganizationName = userInfo.OrganizationName,

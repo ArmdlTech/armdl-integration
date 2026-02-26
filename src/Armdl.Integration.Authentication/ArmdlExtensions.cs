@@ -1,4 +1,4 @@
-﻿using Armdl.Integration.ApiDTO;
+using Armdl.Integration.ApiDTO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
@@ -116,9 +116,9 @@ namespace Armdl.Integration.Authentication
             => builder.AddOAuth<ArmdlOptions, ArmdlHandler>(ArmdlDefaults.AuthenticationScheme, ArmdlDefaults.DisplayName, configureOptions);
 
         public static AuthenticationBuilder AddArmdl(
-            this AuthenticationBuilder builder, 
-            string authenticationScheme, 
-            string displayName, 
+            this AuthenticationBuilder builder,
+            string authenticationScheme,
+            string displayName,
             Action<ArmdlOptions> configureOptions)
         {
             return builder.AddOAuth<ArmdlOptions, ArmdlHandler>(authenticationScheme, displayName, configureOptions);
@@ -126,6 +126,23 @@ namespace Armdl.Integration.Authentication
 
         private static ArmdlUser ToArmdlUser(this UserInfoDTO userInfo)
         {
+            var hasDirectFioMapping =
+                !string.IsNullOrWhiteSpace(userInfo.FirstName)
+                || !string.IsNullOrWhiteSpace(userInfo.LastName)
+                || !string.IsNullOrWhiteSpace(userInfo.Patronymic);
+
+            if (!hasDirectFioMapping && !string.IsNullOrWhiteSpace(userInfo.Name))
+            {
+                var fioParts = userInfo.Name.Split(' ', 3, StringSplitOptions.RemoveEmptyEntries);
+
+                if (fioParts.Length == 3)
+                {
+                    userInfo.LastName = fioParts[0];
+                    userInfo.FirstName = fioParts[1];
+                    userInfo.Patronymic = fioParts[2];
+                }
+            }
+
             var licenseInfo = userInfo.License;
 
             var hasLicense = licenseInfo.Info != null && licenseInfo.Status.ToLowerInvariant() == "success";
@@ -144,8 +161,8 @@ namespace Armdl.Integration.Authentication
                     ? default(DateTime?)
                     : ParseDateInUtc(licenseInfo.Info.CreatedAt),
                 EndedAtUTC = endedAtUTCLicenseDate,
-                StartedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.StartedAt) 
-                    ? defaultNoLicenseDate 
+                StartedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.StartedAt)
+                    ? defaultNoLicenseDate
                     : ParseDateInUtc(licenseInfo.Info.StartedAt),
                 UpdatedAtUTC = !hasLicense || string.IsNullOrEmpty(licenseInfo.Info.UpdatedAt)
                     ? default(DateTime?) :
@@ -161,6 +178,9 @@ namespace Armdl.Integration.Authentication
 
                 Id = userInfo.Id,
                 Name = userInfo.Name,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                Patronymic = userInfo.Patronymic,
                 Email = userInfo.Email,
                 EmailVerifiedAtUTC = string.IsNullOrEmpty(userInfo.EmailVerifiedAt)
                     ? default(DateTime?)
@@ -177,8 +197,8 @@ namespace Armdl.Integration.Authentication
                 CreatedAtUTC = ParseDateInUtc(userInfo.CreatedAt),
                 UpdatedAtUTC = ParseDateInUtc(userInfo.UpdatedAt),
                 PlanTypeId = userInfo.PlanTypeId,
-                StartedAtUTC = !string.IsNullOrEmpty(userInfo.StartedAt) 
-                    ? ParseDateInUtc(userInfo.StartedAt) 
+                StartedAtUTC = !string.IsNullOrEmpty(userInfo.StartedAt)
+                    ? ParseDateInUtc(userInfo.StartedAt)
                     : default,
                 EndedAtUTC = !string.IsNullOrEmpty(userInfo.EndedAt)
                     ? ParseDateInUtc(userInfo.StartedAt)
