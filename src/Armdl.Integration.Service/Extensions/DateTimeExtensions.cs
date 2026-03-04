@@ -1,7 +1,4 @@
-﻿using Armdl.Integration.Service.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Armdl.Integration.Service.Configuration;
 
 namespace Armdl.Integration.Service.Extensions
 {

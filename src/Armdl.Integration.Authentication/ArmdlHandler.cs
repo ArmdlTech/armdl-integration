@@ -1,20 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Armdl.Integration.Authentication
 {
@@ -29,9 +21,8 @@ namespace Armdl.Integration.Authentication
         /// <param name="options">The authentication options.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="encoder">The URL encoder.</param>
-        /// <param name="clock">The system time meter.</param>
-        public ArmdlHandler(IOptionsMonitor<ArmdlOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
-            : base(options, logger, encoder, clock)
+        public ArmdlHandler(IOptionsMonitor<ArmdlOptions> options, ILoggerFactory logger, UrlEncoder encoder)
+            : base(options, logger, encoder)
         {
         }
 

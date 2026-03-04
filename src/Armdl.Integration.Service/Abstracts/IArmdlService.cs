@@ -1,8 +1,4 @@
-﻿using Armdl.Integration.Service.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using Armdl.Integration.Service.Data;
 
 namespace Armdl.Integration.Service.Abstracts
 {
